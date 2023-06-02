@@ -41,5 +41,6 @@ for (let day = 1; day <= workingDaysPerMonth; day++) {
     totalWage += employeeWage;
 }
 
+//Using Reduce and ForEach
+let totalWageUsingReduce = dailyWageArray.reduce((total, wage) => total + wage, 0);
 console.log("Daily Wage Array: " + dailyWageArray);
-console.log("Total Wage for the Month: " + totalWage);
