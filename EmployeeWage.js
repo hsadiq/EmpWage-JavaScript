@@ -10,7 +10,7 @@ let dailyWageMap = new Map();
 
 for (let day = 1; day <= workingDaysPerMonth; day++) {
     let employeeAttendance;
-    let check = Math.floor(Math.random() * 3); // Generate random number between 0 and 2
+    let check = Math.floor(Math.random() * 3);
 
     switch (check) {
         case 0:
