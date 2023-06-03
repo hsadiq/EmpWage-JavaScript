@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Wage Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .result {
+            background-color: #fff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        
+        .result-heading {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .output-value {
+            margin-top: 5px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome To Employee Wage Calculation</h1>
+    
+    <div class="result">
+        <div class="result-heading">Daily Wage Array:</div>
+        <div class="output-value" id="dailyWageArray"></div>
+    </div>
+    
+    <div class="result">
+        <div class="result-heading">Total Wage for the Month (using reduce):</div>
+        <div class="output-value" id="totalWageUsingReduce"></div>
+    </div>
+    
+    <div class="result">
+        <div class="result-heading">Daily Wage with Day:</div>
+        <div class="output-value" id="dailyWageWithDay"></div>
+    </div>
+    
+    <div class="result">
+        <div class="result-heading">Days when Full-time wage of 160 was earned:</div>
+        <div class="output-value" id="fullTimeWageDays"></div>
+    </div>
+    
+    <div class="result">
+        <div class="result-heading">First occurrence when Full Time Wage was earned:</div>
+        <div class="output-value" id="firstFullTimeWageDay"></div>
+    </div>
+    
+    <div class="result">
+        <div class="result-heading">Is every element of Full Time Wage truly holding Full-time wage?</div>
+        <div class="output-value" id="isAllFullTimeWage"></div>
+    </div>
+    
+    <div class="result">
+        <div class="result-heading">Is there any Part Time Wage?</div>
+        <div class="output-value" id="hasPartTimeWage"></div>
+    </div>
+    
+    <div class="result">
+        <div class="result-heading">Number of days the Employee worked:</div>
+        <div class="output-value" id="numberOfDaysWorked"></div>
+    </div>
+    
+    <script>
+        // JavaScript code goes here
+        const wagePerHour = 20;
+        const fullDayHours = 8;
+        const partTimeHours = 4;
+        const workingDaysPerMonth = 20;
+
+        let totalWage = 0;
+        let dailyWageArray = [];
+
+        for (let day = 1; day <= workingDaysPerMonth; day++) {
+            let employeeAttendance;
+            let check = Math.floor(Math.random() * 3); // Generate random number between 0 and 2
+
+            switch (check) {
+                case 0:
+                    employeeAttendance = "Absent";
+                    break;
+                case 1:
+                    employeeAttendance = "Part-Time";
+                    break;
+                case 2:
+                    employeeAttendance = "Full-Time";
+                    break;
+                default:
+                    employeeAttendance = "Invalid";
+            }
+
+            let employeeWage = 0;
+
+            switch (employeeAttendance) {
+                case "Part-Time":
+                    employeeWage = wagePerHour * partTimeHours;
+                    break;
+                case "Full-Time":
+                    employeeWage = wagePerHour * fullDayHours;
+                    break;
+            }
+
+            dailyWageArray.push(employeeWage);
+            totalWage += employeeWage;
+        }
+
+        // a. Calc total Wage using Array forEach or reduce method
+        let totalWageUsingReduce = dailyWageArray.reduce((total, wage) => total + wage, 0);
+
+        // b. Show the Day along with Daily Wage using Array map helper function
+        let dailyWageWithDay = dailyWageArray.map((wage, index) => `Day ${index + 1}: ${wage}`);
+
+        // c. Show Days when Full time wage of 160 were earned using filter function
+        let fullTimeWageDays = dailyWageArray
+            .map((wage, index) => (wage === wagePerHour * fullDayHours ? index + 1 : null))
+            .filter(day => day !== null);
+
+        // d. Find the first occurrence when Full Time Wage was earned using find function
+        let firstFullTimeWageDay = dailyWageArray.findIndex(wage => wage === wagePerHour * fullDayHours);
+
+        // e. Check if Every Element of Full Time Wage is truly holding Full time wage
+        let isAllFullTimeWage = dailyWageArray.every(wage => wage === wagePerHour * fullDayHours);
+
+        // f. Check if there is any Part Time Wage
+        let hasPartTimeWage = dailyWageArray.some(wage => wage === wagePerHour * partTimeHours);
+
+        // g. Find the number of days the Employee Worked
+        let numberOfDaysWorked = dailyWageArray.filter(wage => wage > 0).length;
+
+        document.getElementById("dailyWageArray").textContent = dailyWageArray.join(", ");
+        document.getElementById("totalWageUsingReduce").textContent = totalWageUsingReduce;
+        document.getElementById("dailyWageWithDay").innerHTML = dailyWageWithDay.map(day => "<p>" + day + "</p>").join("");
+        document.getElementById("fullTimeWageDays").textContent = fullTimeWageDays.join(", ");
+        document.getElementById("firstFullTimeWageDay").textContent = firstFullTimeWageDay + 1;
+        document.getElementById("isAllFullTimeWage").textContent = isAllFullTimeWage;
+        document.getElementById("hasPartTimeWage").textContent = hasPartTimeWage;
+        document.getElementById("numberOfDaysWorked").textContent = numberOfDaysWorked;
+    </script>
+</body>
+</html>
