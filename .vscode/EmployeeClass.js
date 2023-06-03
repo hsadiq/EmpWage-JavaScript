@@ -4,12 +4,15 @@ class EmployeePayrollData{
     id;
     name;
     salary;
+    date;
 
-    constructor(id, name, salary){
+    constructor(...params){
 
-        this.id = id;
-        this.name = name;
-        this.salary = salary;
+        this.id = params[0];
+        this.name = params[1];
+        this.salary = params[2];
+        this.gender = params[3];
+        this.date = params[4];
     }
 
     get id(){
@@ -38,9 +41,12 @@ class EmployeePayrollData{
     }
 
     toString(){
-        return "ID = " + this.id + " Name = " +this.name + " Salary: " + this.salary;
+        const options = {Year: 'numeric', month: 'long', day:'numeric'};
+        const empDate = this.date === undefined ? "undefined":
+                        this.date.toLocaleDateString("en-US", options);
+        return "ID = " + this.id + ", Name = " +this.name + ", Salary: " + this.salary + ", Gender: " + this.gender + ", StartDate: " +empDate;
     }
 }
 
-let employeePayrollData  = new EmployeePayrollData(1, "Teressa", 30000);
+let employeePayrollData  = new EmployeePayrollData(1, "Teressa", 30000, "F", new Date());
 console.log(employeePayrollData.toString());
