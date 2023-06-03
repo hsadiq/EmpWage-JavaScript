@@ -28,8 +28,10 @@ class EmployeePayrollData{
     }
 
     set name(name){
-
+        let RegexName = RegExp('^[A-Z]{1}[a-z]{2}$');
+        if (RegexName.test(name))
         this._name = name;
+        else throw 'Name Is Incorrect';
     }
 
     set id(id){
@@ -50,3 +52,10 @@ class EmployeePayrollData{
 
 let employeePayrollData  = new EmployeePayrollData(1, "Teressa", 30000, "F", new Date());
 console.log(employeePayrollData.toString());
+
+try{
+    let NewEmp = new EmployeePayrollData(2, "John", 15000, "M", new Date());
+    console.log(NewEmp.toString());
+}catch(e){
+    console.error(e);
+}
